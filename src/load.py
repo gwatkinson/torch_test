@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import random
 
 
-def load_data():
-    mndata = MNIST("../data/")
+def load_data(data_dir="../data/"):
+    mndata = MNIST(data_dir)
     X_train, y_train = map(np.array, mndata.load_training())
     X_test, y_test = map(np.array, mndata.load_testing())
     X_train = X_train / 255.0
