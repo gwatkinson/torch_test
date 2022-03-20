@@ -10,7 +10,7 @@ def load_data(data_dir="../data/"):
     X_test, y_test = map(np.array, mndata.load_testing())
     X_train = X_train / 255.0
     X_test = X_test / 255.0
-    return (X_train, y_train), (X_test, y_test)
+    return X_train, y_train, X_test, y_test
 
 
 def plot_digit(image, label):
