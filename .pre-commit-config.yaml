@@ -28,11 +28,11 @@ repos:
     rev: 1.2.2
     hooks:
       - id: nbqa-black
-      - id: nbqa-pylint
-        args: ["--max-line-length=100", "--ignore=E501,E402,F401"]
+      # - id: nbqa-pylint
+      #   args: ["--max-line-length=100", "--ignore=E501,E402,F401"]
       - id: nbqa-isort
         args: ["--profile=black"]
-      - id: nbqa-pydocstyle
+      # - id: nbqa-pydocstyle
       - id: nbqa
         args: ["mdformat", "--nbqa-md"]
         additional_dependencies: [mdformat]
