@@ -35,7 +35,7 @@ poethepoet = "^0.12.3"
 docformatter = "^1.4"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.0.8"]
 build-backend = "poetry.core.masonry.api"
 
 
