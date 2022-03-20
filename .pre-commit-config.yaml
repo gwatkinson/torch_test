@@ -34,7 +34,7 @@ repos:
         args: ["--profile=black"]
       - id: nbqa-pydocstyle
       - id: nbqa
-        args: ["mdformat"]
+        args: ["mdformat", "--nbqa-md"]
         additional_dependencies: [mdformat]
 -   repo: https://github.com/kynan/nbstripout
     rev: 0.3.9
