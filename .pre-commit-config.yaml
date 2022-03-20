@@ -32,6 +32,10 @@ repos:
         args: ["--max-line-length=100", "--ignore=E501,E402,F401"]
       - id: nbqa-isort
         args: ["--profile=black"]
+      - id: nbqa-pydocstyle
+      - id: nbqa
+        args: ["mdformat"]
+        additional_dependencies: [mdformat]
 -   repo: https://github.com/kynan/nbstripout
     rev: 0.3.9
     hooks:
