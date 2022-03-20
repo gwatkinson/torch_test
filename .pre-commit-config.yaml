@@ -40,3 +40,8 @@ repos:
     rev:  v0.17.0
     hooks:
     -   id: gitlint
+- repo: https://github.com/myint/docformatter
+  rev: v1.3.1
+  hooks:
+    - id: docformatter
+      args: ["--in-place", "--pre-summary-newline"]

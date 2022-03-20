@@ -13,8 +13,10 @@ matplotlib = "^3.5.1"
 seaborn = "^0.11.2"
 plotly = "^5.5.0"
 scikit-learn = "^1.0.2"
-safety = "^1.10.3"
-bandit = "^1.7.2"
+python-mnist = "^0.7"
+sklearn-genetic = "^0.5.1"
+optuna = "^2.10.0"
+mlxtend = "^0.19.0"
 
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
@@ -23,9 +25,86 @@ jupyterlab = "^3.2.8"
 black = "^22.1.0"
 pylint = "^2.12.2"
 isort = "^5.10.1"
+mypy = "^0.931"
+rstcheck = "^3.3.1"
 pydocstyle = "^6.1.1"
+safety = "^1.10.3"
+bandit = "^1.7.2"
 pre-commit = "^2.17.0"
+poethepoet = "^0.12.3"
+docformatter = "^1.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.poe.tasks]
+
+  [tool.poe.tasks.test]
+  help = "Run unit and feature tests"
+  cmd  = "pytest --cov=mnist"
+
+  [tool.poe.tasks.types]
+  help = "Run the type checker"
+  cmd  = "mypy mnist --ignore-missing-imports"
+
+  [tool.poe.tasks.lint]
+  help = "Run the linter"
+  cmd  = "pylint mnist --exit-zero"
+
+  [tool.poe.tasks.style]
+  help = "Validate code style"
+  cmd  = "black . --check --diff"
+
+  [tool.poe.tasks.check-docs]
+  help = "Validate rst syntax in the docs"
+  cmd  = "rstcheck README.rst"
+
+  [tool.poe.tasks.check]
+  help     = "Run all checks on the code base"
+  sequence = ["check-docs", "style", "types", "lint"]
+
+ [tool.poe.tasks.clean]
+  help = "Remove generated files"
+  cmd  = """
+    # multiline commands including comments work too!
+    rm -rf .coverage
+           .mypy_cache
+           .pytest_cache
+           ./**/__pycache__
+           dist
+           htmlcov
+           ./tests/fixtures/simple_project/venv
+           ./tests/fixtures/venv_project/myvenv
+           ./tests/temp
+  """
+
+  [tool.poe.tasks.format]
+  help = "Run black and isort on the code base"
+  cmd  = """
+    black .
+    isort mnist --recursive --profile black
+  """
+
+  [tool.poe.tasks.safety]
+  help = "Run safety checks"
+  cmd  = "poetry export --without-hashes -f requirements.txt | safety check --full-report --stdin"
+
+  [tool.poe.tasks.bandit]
+  help = "Run bandit checks"
+  cmd  = "bandit -r ."
+
+  [tool.poe.tasks.security-checks]
+  help = "Run all security checks"
+  sequence = ["safety", "bandit"]
+
+  [tool.poe.tasks.force-cuda]
+  help = "Install pytorch via pip with cuda"
+  cmd = """
+    python -m pip install torch==1.10.2+cu113 torchvision==0.11.3+cu113 torchaudio===0.10.2+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+  """
+
+  [tool.poe.tasks.format-doc]
+  help = "Format docstrings"
+  cmd  = "docformatter mnist --pre-summary-newline"
