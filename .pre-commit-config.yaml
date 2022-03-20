@@ -28,7 +28,7 @@ repos:
     rev: 1.2.2
     hooks:
       - id: nbqa-black
-      - id: nbqa-flake8
+      - id: nbqa-pylint
         args: ["--max-line-length=100", "--ignore=E501,E402,F401"]
       - id: nbqa-isort
         args: ["--profile=black"]
